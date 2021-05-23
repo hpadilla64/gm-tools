@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, List, Select, Row, Col, Card, Typography, Space, Divider } from 'antd';
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
 import { GenericProps, EncounterCharacterGroup, IIndexable } from '../../interfaces';
-import { calculateEncounter } from '../../data/pathfinder/encounterCalculator';
+import { calculateEncounter } from '../../data/encounterCalculator';
 const { Option } = Select;
 const { Text } = Typography;
 
@@ -84,37 +84,37 @@ function EncounterCalculator() {
   useEffect(() => {
     const toCalculateEncounter = () => {
       const parseTerrain = terrainValue ? terrainValue === 'true' : terrainValue;
-      return calculateEncounter(charactersItems, enemiesItems, encounterDifficulty, parseTerrain);
-    };
-    const {
-      totalAPL,
-      totalCharacters,
-      targetCR,
-      xpBudget,
-      xpIndividual,
-      xpIndividualExact,
-      encounterCR,
-      encounterXp,
-      xpCost,
-      treasure
-    } = toCalculateEncounter();
-    setEncounterInfo({
-      party: {
+      const {
         totalAPL,
-        totalCharacters
-      },
-      encounter: {
+        totalCharacters,
         targetCR,
-        encounterCR
-      },
-      xp: {
+        xpBudget,
         xpIndividual,
         xpIndividualExact,
-        xpBudget,
-        xpCost
-      },
-      treasure
-    });
+        encounterCR,
+        encounterXp,
+        xpCost,
+        treasure
+      } = calculateEncounter(charactersItems, enemiesItems, encounterDifficulty, parseTerrain);
+      setEncounterInfo({
+        party: {
+          totalAPL,
+          totalCharacters
+        },
+        encounter: {
+          targetCR,
+          encounterCR
+        },
+        xp: {
+          xpIndividual,
+          xpIndividualExact,
+          xpBudget,
+          xpCost
+        },
+        treasure
+      });
+    };
+    toCalculateEncounter();
   }, [enemiesItems, charactersItems, terrainValue, encounterDifficulty]);
 
   return (
@@ -122,7 +122,7 @@ function EncounterCalculator() {
       <Row gutter={16}>
         <Col span={16}>
           <Card>
-            <Row gutter={16} align="middle">
+            <Row gutter={16} align="top">
               <Col span={12}>
                 <Card
                   title="Enemies"
@@ -174,7 +174,7 @@ function EncounterCalculator() {
               <Col span={24}>
                 <Card title="Encounter modifiers">
                   <Space direction="horizontal">
-                    <Text strong>Encounter difficulty</Text>
+                    <Text strong>Encounter difficulty:</Text>
                     <Select value={encounterDifficulty} onSelect={(value) => setEncounterDifficulty(value)}>
                       <Option value="easy">Easy</Option>
                       <Option value="average">Average</Option>
@@ -182,7 +182,7 @@ function EncounterCalculator() {
                       <Option value="hard">Hard</Option>
                       <Option value="epic">Epic</Option>
                     </Select>
-                    <Text strong>Terrain advantage</Text>
+                    <Text strong>Terrain advantage:</Text>
                     <Select value={terrainValue} onSelect={(value) => setTerrainValue(value)}>
                       <Option value={null}>Neutral</Option>
                       <Option value="true">Favorable for PCs</Option>

@@ -15,17 +15,24 @@ const ENCOUNTER_LABELS_MAP: IIndexable = {
   encounterCR: 'Current Encounter CR',
   encounterXp: 'Current Encounter XP',
   xpCost: 'XP Cost',
-  treasure: 'Loot'
+  treasure: 'Loot',
+  slow: 'Slow',
+  medium: 'Medium',
+  fast: 'Fast'
 };
 
 function EncounterInfoBox(props: GenericProps) {
-  const { info } = props;
+  const { info, suffix = '' } = props;
 
   return (
     <Space direction="vertical">
       {Object.entries(info).map(([key, value]: [string, number]) => (
         <Text key={key}>
-          {ENCOUNTER_LABELS_MAP[key]}: <Text strong>{value < 1 ? '1/2' : value}</Text>
+          {ENCOUNTER_LABELS_MAP[key]}:{' '}
+          <Text strong>
+            {value < 1 ? '1/2' : commaNumber(value)}
+            {suffix}
+          </Text>
         </Text>
       ))}
     </Space>
@@ -81,6 +88,8 @@ function EncounterReport(props: GenericProps) {
           of <Text strong>{commaNumber(xp.xpBudget)}</Text> xp for this encounter.
         </Text>
       </Space>
+      <Divider orientation="left">Treasure</Divider>
+      <EncounterInfoBox info={treasure} suffix="gp" />
     </Card>
   );
 }

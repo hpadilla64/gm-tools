@@ -1,7 +1,7 @@
 /**
  *
  */
-import { EncounterCharacterGroup, IIndexable, EncounterCRCalc } from '../../interfaces';
+import { EncounterCharacterGroup, IIndexable, EncounterCRCalc } from '../interfaces';
 import TABLE_TREASURE_VALUE from './treasureValueEncounter.json';
 
 const CR_VALUES: IIndexable = {
