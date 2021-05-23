@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./out/",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "target": "esnext",
+    "module": "commonjs",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
+}
