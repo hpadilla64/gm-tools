@@ -3,7 +3,7 @@ import { Card, Divider, Space, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { GenericProps, IIndexable } from '../../interfaces';
 import { BaseType } from 'antd/lib/typography/Base';
-import { commaNumber } from '../../app/tools/snippets';
+import { commaNumber } from '../../tools/snippets';
 const { Text } = Typography;
 const ENCOUNTER_LABELS_MAP: IIndexable = {
   totalAPL: 'Average Party Level',

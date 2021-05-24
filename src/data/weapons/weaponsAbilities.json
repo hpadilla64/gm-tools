@@ -1,0 +1,634 @@
+[
+  {
+    "name": "Impervious",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 3000
+  },
+  {
+    "name": "Glamered",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 4000
+  },
+  {
+    "name": "Allying",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Bane",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Benevolent",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Called",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Conductive",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Corrosive",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Countering",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Courageous",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Cruel",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Cunning",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Deadly",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Defending",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Dispelling",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Flaming",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Frost",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Furious",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Ghost touch",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Grayflame",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Grounding",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Guardian",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Heartseeker",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Huntsman",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Jurist",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Keen3",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Ki focus",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Limning",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Menacing",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Merciful",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Mighty cleaving",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Mimetic",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Neutralizing",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Ominous",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Planar",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Quenching",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Seaborne",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Shock",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Spell storing",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Thawing",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Throwing",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Thundering",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Unaligned",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Valiant",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Vicious",
+    "bonus": 1,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Advancing",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Anarchic",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Anchoring",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Axiomatic",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Corrosive burst",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Defiant",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Dispelling burst",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Disruption2",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Flaming burst",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Furyborn",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Glorious",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Holy",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Icy burst",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Igniting",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Impact4",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Invigorating",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Ki intensifying",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Lifesurge",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Negating",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Phase locking",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "PlanestrikingPRG:PA",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Shocking burst",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Stalking",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Unholy",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Wounding",
+    "bonus": 2,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Nullifying",
+    "bonus": 3,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Repositioning",
+    "bonus": 3,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Speed",
+    "bonus": 3,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Spell stealing",
+    "bonus": 3,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Brilliant energy",
+    "bonus": 4,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Dancing",
+    "bonus": 4,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Vorpal",
+    "bonus": 5,
+    "category": [
+      "melee"
+    ],
+    "base": 0
+  },
+  {
+    "name": "Transformative",
+    "bonus": 5,
+    "category": [
+      "melee"
+    ],
+    "base": 10000
+  },
+  {
+    "name": "Dueling",
+    "bonus": 5,
+    "category": [
+      "melee"
+    ],
+    "base": 14000
+  }
+]
