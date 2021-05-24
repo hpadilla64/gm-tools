@@ -11,7 +11,7 @@ import SelectCharsLvl from './selectCharsLvls';
 import EncounterReport from './encounterReport';
 
 function ListItem(props: GenericProps) {
-  const { numCharacters, level, areEnemies, id, onDeleteItem, onChange, showActions, maxLevel } = props;
+  const { numCharacters, level, areEnemies, id, onDeleteItem, onChange, showActions, maxLevel, maxCharacters } = props;
 
   const removeItem = () => onDeleteItem(id, areEnemies);
   const updateItem = (encounterGroup: EncounterCharacterGroup) => onChange(encounterGroup, id, areEnemies);
@@ -32,6 +32,7 @@ function ListItem(props: GenericProps) {
           areEnemies={areEnemies}
           onChange={updateItem}
           maxLevel={maxLevel}
+          maxCharacters={maxCharacters}
         />
       </div>
     </List.Item>
@@ -52,7 +53,8 @@ function EncounterCalculator() {
   const [terrainValue, setTerrainValue] = useState(null);
   const [encounterDifficulty, setEncounterDifficulty] = useState('average');
   const [encounterInfo, setEncounterInfo] = useState<EncounterInfo>({ party: {}, encounter: {}, xp: {}, treasure: {} });
-  const [maxLevel, setMaxLevel] = useState(30);
+  // const [maxLevel, setMaxLevel] = useState(30);
+  // const [maxCharacters, setMaxCharacters] = useState(100);
   let updateList;
 
   const addItem = (isEnemy?: boolean) => {
@@ -140,7 +142,8 @@ function EncounterCalculator() {
                         showActions={enemiesItems.length > 1}
                         id={index}
                         key={index}
-                        maxLevel={maxLevel}
+                        maxLevel={40}
+                        maxCharacters={100}
                       />
                     )}
                   />
@@ -162,7 +165,8 @@ function EncounterCalculator() {
                         showActions={charactersItems.length > 1}
                         id={index}
                         key={index}
-                        maxLevel={maxLevel}
+                        maxLevel={20}
+                        maxCharacters={20}
                       />
                     )}
                   />

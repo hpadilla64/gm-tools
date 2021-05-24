@@ -12,6 +12,14 @@ const CR_VALUES: IIndexable = {
   EPIC: 3
 };
 const LVL_1_XP: number = 400;
+const SUBLEVELS_MAX_DIVIDER: number = 8;
+const SUBLEVELS_TREASURE_INDEX: IIndexable = {
+  '0.125': 0,
+  '0.167': 1,
+  '0.250': 2,
+  '0.333': 3,
+  '0.500': 4
+};
 
 /**
  * Calculates the APL for a party
@@ -29,7 +37,6 @@ function calculateAPL(characterList: EncounterCharacterGroup[]) {
   });
 
   totalAPL = Math.round(totalLevels / totalCharacters);
-
   switch (true) {
     case totalCharacters > 5:
       totalAPL++;
@@ -39,7 +46,8 @@ function calculateAPL(characterList: EncounterCharacterGroup[]) {
       break;
     // no default
   }
-  totalAPL = totalAPL < 1 ? 1 : totalAPL;
+  totalAPL = totalAPL <= 0 ? 0.5 : totalAPL;
+
   return {
     totalAPL,
     totalCharacters,
@@ -66,6 +74,7 @@ function calculateXPByCR(cr: number): number {
     }
     currStep++;
   } while (currStep <= cr);
+
   return totalBudget;
 }
 
@@ -77,10 +86,17 @@ function calculateXPByCR(cr: number): number {
 function calculateLvlByXp(targetXp: number): EncounterCRCalc {
   let currentXP = 0;
   let currentCR = 0;
+  let subLvlSteps = SUBLEVELS_MAX_DIVIDER;
+
   while (true) {
     currentXP = calculateXPByCR(currentCR);
     if (currentXP >= targetXp) break;
-    currentCR++;
+    if (targetXp < LVL_1_XP) {
+      currentCR = 1 / subLvlSteps;
+      subLvlSteps--;
+    } else {
+      currentCR++;
+    }
   }
 
   return {
@@ -100,6 +116,7 @@ function calculateCR(enemiesList: EncounterCharacterGroup[]): EncounterCRCalc {
     const currentXP = calculateXPByCR(level) * numCharacters;
     xpCost += currentXP;
   });
+
   const { encounterCR, encounterXp } = calculateLvlByXp(xpCost);
   return {
     encounterCR,
@@ -141,25 +158,24 @@ export function calculateEncounter(
     } = enemiesList && enemiesList.length > 0 ? calculateCR(enemiesList) : {};
 
     let xpIndividual = 0;
-    let xpIndividualExact = 0;
+    let xpIndividualExact = xpCost ? Math.ceil(xpCost / totalCharacters) : 0;
     switch (true) {
-      case totalCharacters <= 3:
+      case totalCharacters < 4:
         xpIndividual = xpCost ? Math.ceil(xpCost / 3 / 5) * 5 : 0;
-        xpIndividualExact = xpCost ? Math.ceil(xpCost / totalCharacters / 5) * 5 : 0;
         break;
-      case totalCharacters >= 6:
+      case totalCharacters > 5:
         xpIndividual = xpCost ? Math.ceil(xpCost / 6 / 5) * 5 : 0;
-        xpIndividualExact = xpCost ? Math.ceil(xpCost / totalCharacters / 5) * 5 : 0;
         break;
       default:
-        xpIndividual = xpCost ? xpCost / 4 : 0;
-        xpIndividualExact = xpCost ? xpCost / totalCharacters : 0;
+        xpIndividual = xpCost ? Math.ceil(xpCost / 4 / 5) * 5 : 0;
     }
 
+    const treasureList = encounterCR < 1 ? TABLE_TREASURE_VALUE.subcr : TABLE_TREASURE_VALUE;
+    const treasureIndex = encounterCR < 1 ? SUBLEVELS_TREASURE_INDEX[encounterCR.toFixed(3)] : encounterCR - 1;
     const treasure = {
-      slow: TABLE_TREASURE_VALUE.slow[encounterCR],
-      medium: TABLE_TREASURE_VALUE.medium[encounterCR],
-      fast: TABLE_TREASURE_VALUE.fast[encounterCR]
+      slow: treasureList.slow[treasureIndex],
+      medium: treasureList.medium[treasureIndex],
+      fast: treasureList.fast[treasureIndex]
     };
 
     encounterCalc = {
@@ -175,5 +191,6 @@ export function calculateEncounter(
       treasure
     };
   }
+
   return encounterCalc;
 }

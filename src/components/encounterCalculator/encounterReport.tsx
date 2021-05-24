@@ -20,6 +20,13 @@ const ENCOUNTER_LABELS_MAP: IIndexable = {
   medium: 'Medium',
   fast: 'Fast'
 };
+const SUBLEVELS_LABELS: IIndexable = {
+  '0.125': '1/8',
+  '0.167': '1/6',
+  '0.250': '1/4',
+  '0.333': '1/3',
+  '0.500': '1/2'
+};
 
 function EncounterInfoBox(props: GenericProps) {
   const { info, suffix = '' } = props;
@@ -30,7 +37,7 @@ function EncounterInfoBox(props: GenericProps) {
         <Text key={key}>
           {ENCOUNTER_LABELS_MAP[key]}:{' '}
           <Text strong>
-            {value < 1 ? '1/2' : commaNumber(value)}
+            {value < 1 ? SUBLEVELS_LABELS[value.toFixed(3)] : commaNumber(value)}
             {suffix}
           </Text>
         </Text>
@@ -50,7 +57,7 @@ function EncounterReport(props: GenericProps) {
         case xp.xpCost > xp.xpBudget:
           budgetLabel = 'danger';
           break;
-        case xp.xpCost < xp.xpBudget * 0.75:
+        case xp.xpCost < xp.xpBudget * 0.95:
           budgetLabel = 'warning';
           break;
         // no default
@@ -72,13 +79,13 @@ function EncounterReport(props: GenericProps) {
           <Tooltip title="Individual XP awards listed for a group of the appropriate party size">
             <InfoCircleOutlined />
           </Tooltip>{' '}
-          {ENCOUNTER_LABELS_MAP['xpIndividual']}: <Text strong>{xp.xpIndividual}</Text>
+          {ENCOUNTER_LABELS_MAP['xpIndividual']}: <Text strong>{commaNumber(xp.xpIndividual)}</Text>
         </Text>
         <Text strong>
           <Tooltip title="Total XP divided by the number of characters">
             <InfoCircleOutlined />
           </Tooltip>{' '}
-          {ENCOUNTER_LABELS_MAP['xpIndividualExact']}: <Text>{xp.xpIndividualExact}</Text>
+          {ENCOUNTER_LABELS_MAP['xpIndividualExact']}: <Text>{commaNumber(xp.xpIndividualExact)}</Text>
         </Text>
         <Text>
           Used{' '}

@@ -5,5 +5,6 @@ export default interface EncounterCharacterProps {
   level: number;
   areEnemies?: boolean;
   maxLevel?: number;
+  maxCharacters?: number;
   onChange?: (object: EncounterCharacterGroup) => void;
 }

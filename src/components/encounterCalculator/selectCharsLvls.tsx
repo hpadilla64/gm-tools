@@ -4,7 +4,7 @@ import { EncounterCharacterProps } from '../../interfaces';
 const { Option } = Select;
 
 function SelectCharsLvl(props: EncounterCharacterProps) {
-  const { areEnemies, characters, level, onChange, maxLevel } = props;
+  const { areEnemies, characters, level, onChange, maxLevel, maxCharacters } = props;
   const [listCharacterSelect, setListCharacterSelect] = useState([]);
   const [listLvlSelect, setListLvlSelect] = useState([]);
   const [chars, setChars] = useState(characters);
@@ -29,7 +29,7 @@ function SelectCharsLvl(props: EncounterCharacterProps) {
           1/2
         </Option>
       ];
-      const totalCharacterSelect = 20;
+      const totalCharacterSelect = maxCharacters || 30;
       const totalLvlSelect = maxLevel || 30;
       const charArr = [];
       const lvlArr = areEnemies ? [...subOptions] : [];
