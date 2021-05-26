@@ -3,33 +3,42 @@
     "name": "Impervious",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 3000
+    "base": 3000,
+    "notes": []
   },
   {
     "name": "Glamered",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 4000
+    "base": 4000,
+    "notes": []
   },
   {
     "name": "Allying",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Bane",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Benevolent",
@@ -37,31 +46,42 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Called",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Conductive",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Corrosive",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Countering",
@@ -69,7 +89,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Courageous",
@@ -77,23 +98,30 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Cruel",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Cunning",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Deadly",
@@ -101,7 +129,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Defending",
@@ -109,7 +138,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Dispelling",
@@ -117,23 +147,34 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Flaming",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Frost",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Furious",
@@ -141,15 +182,18 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Ghost touch",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Grayflame",
@@ -157,7 +201,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Grounding",
@@ -165,7 +210,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Guardian",
@@ -173,7 +219,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Heartseeker",
@@ -181,31 +228,39 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Huntsman",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Jurist",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
-    "name": "Keen3",
+    "name": "Keen",
     "bonus": 1,
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Melee: Piercing or slashing weapons only (slashing only for vorpal)."
+    ]
   },
   {
     "name": "Ki focus",
@@ -213,15 +268,19 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Limning",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Menacing",
@@ -229,15 +288,21 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Merciful",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Mighty cleaving",
@@ -245,7 +310,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Mimetic",
@@ -253,7 +319,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Neutralizing",
@@ -261,7 +328,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Ominous",
@@ -269,15 +337,19 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Planar",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Quenching",
@@ -285,7 +357,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Seaborne",
@@ -293,15 +366,21 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Shock",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Spell storing",
@@ -309,7 +388,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Thawing",
@@ -317,7 +397,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Throwing",
@@ -325,15 +406,21 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Thundering",
     "bonus": 1,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Unaligned",
@@ -341,7 +428,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Valiant",
@@ -349,7 +437,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Vicious",
@@ -357,7 +446,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Advancing",
@@ -365,39 +455,59 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Anarchic",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Anchoring",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Only thrown ranged weapons can have this special ability."
+    ]
   },
   {
     "name": "Axiomatic",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Corrosive burst",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Defiant",
@@ -405,7 +515,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Dispelling burst",
@@ -413,23 +524,32 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
-    "name": "Disruption2",
+    "name": "Disruption",
     "bonus": 2,
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Melee: Bludgeoning weapons only."
+    ]
   },
   {
     "name": "Flaming burst",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Furyborn",
@@ -437,7 +557,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Glorious",
@@ -445,39 +566,58 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Holy",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Icy burst",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Igniting",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
-    "name": "Impact4",
+    "name": "Impact",
     "bonus": 2,
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Melee: This special ability cannot be applied to light melee weapons."
+    ]
   },
   {
     "name": "Invigorating",
@@ -485,7 +625,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Ki intensifying",
@@ -493,7 +634,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Lifesurge",
@@ -501,7 +643,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Negating",
@@ -509,47 +652,66 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Phase locking",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
-    "name": "PlanestrikingPRG:PA",
+    "name": "Planestriking",
     "bonus": 2,
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Shocking burst",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Stalking",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Unholy",
     "bonus": 2,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Wounding",
@@ -557,7 +719,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Nullifying",
@@ -565,7 +728,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Repositioning",
@@ -573,15 +737,18 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Speed",
     "bonus": 3,
     "category": [
-      "melee"
+      "melee",
+      "ranged"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Spell stealing",
@@ -589,15 +756,21 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Brilliant energy",
     "bonus": 4,
     "category": [
-      "melee"
+      "melee",
+      "ranged",
+      "ammo"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
   },
   {
     "name": "Dancing",
@@ -605,7 +778,8 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": []
   },
   {
     "name": "Vorpal",
@@ -613,7 +787,10 @@
     "category": [
       "melee"
     ],
-    "base": 0
+    "base": 0,
+    "notes": [
+      "Melee: Piercing or slashing weapons only (slashing only for vorpal)."
+    ]
   },
   {
     "name": "Transformative",
@@ -621,7 +798,8 @@
     "category": [
       "melee"
     ],
-    "base": 10000
+    "base": 10000,
+    "notes": []
   },
   {
     "name": "Dueling",
@@ -629,6 +807,167 @@
     "category": [
       "melee"
     ],
-    "base": 14000
+    "base": 14000,
+    "notes": []
+  },
+  {
+    "name": "Adaptive",
+    "bonus": 1,
+    "category": [
+      "ranged"
+    ],
+    "base": 1000,
+    "notes": [
+      "Ranged: Only bows can have this ability (composite only for adaptive)."
+    ]
+  },
+  {
+    "name": "Conserving",
+    "bonus": 1,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Firearms cannot have this special ability."
+    ]
+  },
+  {
+    "name": "Distance",
+    "bonus": 1,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": []
+  },
+  {
+    "name": "Lucky",
+    "bonus": 1,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Only firearms can have this special ability."
+    ]
+  },
+  {
+    "name": "Reliable",
+    "bonus": 1,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Only firearms can have this special ability."
+    ]
+  },
+  {
+    "name": "Returning",
+    "bonus": 1,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Only thrown ranged weapons can have this special ability."
+    ]
+  },
+  {
+    "name": "Seeking",
+    "bonus": 1,
+    "category": [
+      "ranged",
+      "ammo"
+    ],
+    "base": 0,
+    "notes": []
+  },
+  {
+    "name": "Designating, lesser",
+    "bonus": 2,
+    "category": [
+      "ranged",
+      "ammo"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
+  },
+  {
+    "name": "Endless ammunition",
+    "bonus": 2,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Only bows and crossbows can have this special ability."
+    ]
+  },
+  {
+    "name": "Lucky, greater",
+    "bonus": 3,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Only firearms can have this special ability."
+    ]
+  },
+  {
+    "name": "Reliable, greater",
+    "bonus": 3,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Only firearms can have this special ability."
+    ]
+  },
+  {
+    "name": "Designating, greater",
+    "bonus": 4,
+    "category": [
+      "ranged",
+      "ammo"
+    ],
+    "base": 0,
+    "notes": []
+  },
+  {
+    "name": "Nimble shot",
+    "bonus": 4,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": []
+  },
+  {
+    "name": "Second chance",
+    "bonus": 4,
+    "category": [
+      "ranged"
+    ],
+    "base": 0,
+    "notes": [
+      "Ranged: Projectile weapons with this ability bestow this power upon their ammunition."
+    ]
+  },
+  {
+    "name": "Dry load",
+    "bonus": 1,
+    "category": [
+      "ammo"
+    ],
+    "base": 1500,
+    "notes": [
+      "Ammo: This special ability can only be applied to alchemical or metal firearm cartridges."
+    ]
   }
 ]
