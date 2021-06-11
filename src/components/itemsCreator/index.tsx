@@ -1,55 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Space, Divider, Select, Radio } from 'antd';
 import WeaponsData from '../../data/weapons/weaponsAbilities.json';
-import { GenericProps, ItemAbility } from '../../interfaces';
+import ItemAbilityList from './itemAbilityList';
 const { Option, OptGroup } = Select;
+
+const MAX_ITEM_SLOTS: number = 10;
 
 function ItemsCreator() {
   const [itemType, setItemType] = useState(0);
-  const [itemBonus, setItemBonus] = useState(0);
-  const [itemAbility, setItemAbility] = useState(-1);
-  const [totalBonus, setTotalBonus] = useState(0);
-  const [abilitiesList, setAbilitiesList] = useState([]);
-
-  const ITEM_TYPE_MAP = ['melee', 'ranged', 'ammo'];
+  const [itemBonus, setItemBonus] = useState(1);
+  const [itemAbilities, setItemAbilities] = useState([]);
+  const [availableItemSlots, setAvailableItemSlots] = useState(MAX_ITEM_SLOTS - 1);
+  const [maxBonusAvailable, setMaxBonusAvailable] = useState(5);
 
   useEffect(() => {
-    const toSetTotalBonus = () => {
-      const total = 1 + itemBonus;
-      setTotalBonus(total);
+    const toCalculateItemSlots = () => {
+      const abilitiesSlots = itemAbilities.reduce((accumulate, current) => accumulate + current.bonus, 0);
+      const maxBonus = MAX_ITEM_SLOTS - abilitiesSlots;
+      const availableItemSlots = MAX_ITEM_SLOTS - abilitiesSlots - itemBonus;
+      if (itemBonus > maxBonus) {
+        setItemBonus(maxBonus);
+      }
+      setMaxBonusAvailable(maxBonus);
+      setAvailableItemSlots(availableItemSlots);
     };
-    toSetTotalBonus();
-  }, [itemBonus, itemAbility]);
-
-  useEffect(() => {
-    const toSetAbilitiesList = () => {
-      const groupsArray: Array<Array<any>> = [];
-      WeaponsData.forEach((ability, index) => {
-        const { category, name } = ability;
-        const isInCategory = category.includes(ITEM_TYPE_MAP[itemType]);
-        if (isInCategory) {
-          groupsArray[ability.bonus - 1]
-            ? groupsArray[ability.bonus - 1].push(
-                <Option key={index} value={index}>
-                  {name}
-                </Option>
-              )
-            : (groupsArray[ability.bonus - 1] = [
-                <Option key={index} value={index}>
-                  {name}
-                </Option>
-              ]);
-        }
-      });
-      const list: any[] = groupsArray.map((group, index) => (
-        <OptGroup key={index} label={`+${index + 1} abilities`}>
-          {group}
-        </OptGroup>
-      ));
-      setAbilitiesList(list);
-    };
-    toSetAbilitiesList();
-  }, [itemType]);
+    toCalculateItemSlots();
+  }, [itemBonus, itemAbilities]);
 
   return (
     <Row gutter={16}>
@@ -63,25 +39,29 @@ function ItemsCreator() {
           </Select>
           <Divider orientation="left">Item Bonus</Divider>
           <Radio.Group onChange={({ target: { value } }) => setItemBonus(value)} value={itemBonus}>
-            <Radio value={0}>+1</Radio>
-            <Radio value={1}>+2</Radio>
-            <Radio value={2}>+3</Radio>
-            <Radio value={3}>+4</Radio>
-            <Radio value={4}>+5</Radio>
+            <Radio value={1} disabled={maxBonusAvailable < 1}>
+              +1
+            </Radio>
+            <Radio value={2} disabled={maxBonusAvailable < 2}>
+              +2
+            </Radio>
+            <Radio value={3} disabled={maxBonusAvailable < 3}>
+              +3
+            </Radio>
+            <Radio value={4} disabled={maxBonusAvailable < 4}>
+              +4
+            </Radio>
+            <Radio value={5} disabled={maxBonusAvailable < 5}>
+              +5
+            </Radio>
           </Radio.Group>
           <Divider orientation="left">Item abilities</Divider>
-          <Select
-            value={itemAbility}
-            placeholder="Select an ability"
-            onChange={(value) => setItemAbility(value)}
-            optionFilterProp="name"
-            style={{
-              width: '100%'
-            }}
-          >
-            {abilitiesList}
-          </Select>
-          total bonus: {totalBonus}
+          <ItemAbilityList
+            itemType={itemType}
+            availableSlots={availableItemSlots}
+            onChange={(abilitiesList) => setItemAbilities(abilitiesList)}
+          />
+          available item slots: {availableItemSlots}
         </Card>
       </Col>
       <Col span={12}>report</Col>
