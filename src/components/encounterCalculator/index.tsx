@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, List, Select, Row, Col, Card, Typography, Space, Divider } from 'antd';
+import { Button, List, Select, Row, Col, Card, Typography, Space } from 'antd';
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
-import { GenericProps, EncounterCharacterGroup, IIndexable } from '../../interfaces';
-import { calculateEncounter } from '../../data/encounterCalculator';
+import { EncounterCharacterGroup, EncounterReport as IEncounterReport } from '../../interfaces';
+import { calculateEncounter } from '../../data/encounterCalculator/encounterCalculator';
 const { Option } = Select;
 const { Text } = Typography;
 
@@ -10,8 +10,53 @@ const { Text } = Typography;
 import SelectCharsLvl from './selectCharsLvls';
 import EncounterReport from './encounterReport';
 
-function ListItem(props: GenericProps) {
-  const { numCharacters, level, areEnemies, id, onDeleteItem, onChange, showActions, maxLevel, maxCharacters } = props;
+const baseEncounterReport = {
+  party: {
+    totalAPL: 0,
+    totalCharacters: 0
+  },
+  encounter: {
+    targetCR: 0,
+    encounterCR: 0
+  },
+  xp: {
+    xpIndividual: 0,
+    xpIndividualExact: 0,
+    xpBudget: 0,
+    xpCost: 0
+  },
+  treasure: {
+    slow: 0,
+    medium: 0,
+    fast: 0
+  }
+};
+
+// Interfaces
+interface IListItem {
+  numCharacters: number;
+  level: number;
+  id: number;
+  maxLevel: number;
+  areEnemies?: boolean;
+  showActions?: boolean;
+  maxCharacters: number;
+  onDeleteItem: (id: number, areEnemies: boolean) => void;
+  onChange: (encounterGroup: EncounterCharacterGroup, id: number, areEnemies: boolean) => void;
+}
+
+function ListItem(props: IListItem) {
+  const {
+    numCharacters,
+    level,
+    areEnemies = false,
+    id,
+    onDeleteItem,
+    onChange,
+    showActions,
+    maxLevel,
+    maxCharacters
+  } = props;
 
   const removeItem = () => onDeleteItem(id, areEnemies);
   const updateItem = (encounterGroup: EncounterCharacterGroup) => onChange(encounterGroup, id, areEnemies);
@@ -21,7 +66,7 @@ function ListItem(props: GenericProps) {
       actions={
         showActions
           ? [<Button type="primary" danger shape="circle" icon={<DeleteFilled />} onClick={removeItem} />]
-          : null
+          : undefined
       }
       style={{ alignItems: 'flex-end' }}
     >
@@ -39,20 +84,13 @@ function ListItem(props: GenericProps) {
   );
 }
 
-interface EncounterInfo {
-  party: object;
-  encounter: object;
-  xp: object;
-  treasure: object;
-}
-
 function EncounterCalculator() {
   const baseEncounterGroup: EncounterCharacterGroup = { numCharacters: 1, level: 1 };
   const [enemiesItems, setEnemiesItems] = useState<EncounterCharacterGroup[]>([baseEncounterGroup]);
   const [charactersItems, setCharactersItems] = useState<EncounterCharacterGroup[]>([baseEncounterGroup]);
-  const [terrainValue, setTerrainValue] = useState(null);
+  const [terrainValue, setTerrainValue] = useState('null');
   const [encounterDifficulty, setEncounterDifficulty] = useState('average');
-  const [encounterInfo, setEncounterInfo] = useState<EncounterInfo>({ party: {}, encounter: {}, xp: {}, treasure: {} });
+  const [encounterInfo, setEncounterInfo] = useState<IEncounterReport>(baseEncounterReport);
   // const [maxLevel, setMaxLevel] = useState(30);
   // const [maxCharacters, setMaxCharacters] = useState(100);
   let updateList;
@@ -65,8 +103,8 @@ function EncounterCalculator() {
 
   const removeItem = (elementId: number, isEnemy: boolean) => {
     updateList = isEnemy
-      ? enemiesItems.filter((item, index) => index !== elementId)
-      : charactersItems.filter((item, index) => index !== elementId);
+      ? enemiesItems.filter((_item, index) => index !== elementId)
+      : charactersItems.filter((_item, index) => index !== elementId);
     return updateStateAndCalculate(updateList, isEnemy);
   };
 
@@ -85,7 +123,16 @@ function EncounterCalculator() {
 
   useEffect(() => {
     const toCalculateEncounter = () => {
-      const parseTerrain = terrainValue ? terrainValue === 'true' : terrainValue;
+      let parseTerrain = null;
+      switch (terrainValue) {
+        case 'true':
+          parseTerrain = true;
+          break;
+        case 'false':
+          parseTerrain = false;
+          break;
+        // no default
+      }
       const {
         totalAPL,
         totalCharacters,
@@ -94,7 +141,6 @@ function EncounterCalculator() {
         xpIndividual,
         xpIndividualExact,
         encounterCR,
-        encounterXp,
         xpCost,
         treasure
       } = calculateEncounter(charactersItems, enemiesItems, encounterDifficulty, parseTerrain);
@@ -187,7 +233,7 @@ function EncounterCalculator() {
                   </Select>
                   <Text strong>Terrain advantage:</Text>
                   <Select value={terrainValue} onSelect={(value) => setTerrainValue(value)}>
-                    <Option value={null}>Neutral</Option>
+                    <Option value="null">Neutral</Option>
                     <Option value="true">Favorable for PCs</Option>
                     <Option value="false">Unfavorable for PCs</Option>
                   </Select>

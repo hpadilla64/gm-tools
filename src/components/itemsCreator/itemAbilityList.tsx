@@ -2,32 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { Select, List, Button } from 'antd';
 const { Option, OptGroup } = Select;
 import WeaponsData from '../../data/weapons/weaponsAbilities.json';
+import { IItemAbility } from '../../interfaces';
 
 function ItemAbilityList(props: {
   itemType: number;
   availableSlots: number;
-  onChange?: (list: Array<object>) => void;
+  onChange?: (list: Array<IItemAbility>) => void;
 }) {
   const { itemType, availableSlots, onChange } = props;
-  const [abilitiesList, setAbilitiesList] = useState([]);
+  const [abilitiesList, setAbilitiesList] = useState<JSX.Element[]>([]);
   const [itemAbility, setItemAbility] = useState(-1);
-  const [itemAbilitiesList, setItemsAbilitiesList] = useState([]);
+  const [itemAbilitiesList, setItemsAbilitiesList] = useState<IItemAbility[]>([]);
 
   const ITEM_TYPE_MAP = ['melee', 'ranged', 'ammo'];
 
   const addAbilityToItem = () => {
     if (!itemAbilitiesList.includes(WeaponsData[itemAbility])) {
-      const updatedList = [...itemAbilitiesList, WeaponsData[itemAbility]];
+      let updatedList: IItemAbility[] = [];
       setItemAbility(-1);
-      setItemsAbilitiesList(updatedList);
-      onChange(updatedList);
+      setItemsAbilitiesList((prevAbilities) => {
+        updatedList = [...prevAbilities, WeaponsData[itemAbility]];
+        return updatedList;
+      });
+      if (onChange) {
+        onChange(updatedList);
+      }
     }
   };
 
   useEffect(() => {
     const toSetAbilitiesList = () => {
-      abilitiesList.forEach((optionGroup) => {
-        console.log(optionGroup.key, availableSlots);
+      /* abilitiesList.forEach((optionGroup) => {
+        // console.log(optionGroup.key, availableSlots);
         if (optionGroup.key > availableSlots) {
           const {
             props: { children: optGroupChildren }
@@ -36,7 +42,7 @@ function ItemAbilityList(props: {
             // child.props.disabled = true;
           });
         }
-      });
+      }); */
       console.log(abilitiesList);
       setAbilitiesList(abilitiesList);
     };
@@ -58,7 +64,7 @@ function ItemAbilityList(props: {
           groupsArray[bonus] ? groupsArray[bonus].push(optionComponent) : (groupsArray[bonus] = [optionComponent]);
         }
       });
-      const list: any[] = groupsArray.map((group, index) => (
+      const list: JSX.Element[] = groupsArray.map((group, index) => (
         <OptGroup key={index} label={`+${index} abilities`}>
           {group}
         </OptGroup>

@@ -1,4 +1,4 @@
-export default interface IItemAbility {
+export interface IItemAbility {
   name: string;
   bonus: number;
   category: Array<string>;

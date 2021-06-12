@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Divider, Space, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { GenericProps, IIndexable } from '../../interfaces';
+import { EncounterReport as IEncounterReport, IIndexable } from '../../interfaces';
 import { BaseType } from 'antd/lib/typography/Base';
 import { commaNumber } from '../../tools/snippets';
 const { Text } = Typography;
@@ -28,12 +28,12 @@ const SUBLEVELS_LABELS: IIndexable = {
   '0.500': '1/2'
 };
 
-function EncounterInfoBox(props: GenericProps) {
+function EncounterInfoBox<T extends { info: object; suffix?: string }>(props: T) {
   const { info, suffix = '' } = props;
 
   return (
     <Space direction="vertical">
-      {Object.entries(info).map(([key, value]: [string, number]) => (
+      {Object.entries(info).map(([key, value]) => (
         <Text key={key}>
           {ENCOUNTER_LABELS_MAP[key]}:{' '}
           <Text strong>
@@ -46,7 +46,7 @@ function EncounterInfoBox(props: GenericProps) {
   );
 }
 
-function EncounterReport(props: GenericProps) {
+function EncounterReport(props: IEncounterReport) {
   const { party, encounter, xp, treasure } = props;
   const [xpCostIndicator, setXpCostIndicator] = useState<BaseType>('success');
 

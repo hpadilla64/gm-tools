@@ -7,7 +7,7 @@ const { Header, Sider, Content, Footer } = Layout;
 const { Title } = Typography;
 
 export const App = () => {
-  const [toolName, setToolName] = useState<string>('itemsCreator');
+  const [toolName, setToolName] = useState<string>('encounterCalc');
   const dmTools: IIndexable = {
     encounterCalc: {
       title: 'Encounter Calculator',

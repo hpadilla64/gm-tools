@@ -5,8 +5,8 @@ const { Option } = Select;
 
 function SelectCharsLvl(props: EncounterCharacterProps) {
   const { areEnemies, characters, level, onChange, maxLevel, maxCharacters } = props;
-  const [listCharacterSelect, setListCharacterSelect] = useState([]);
-  const [listLvlSelect, setListLvlSelect] = useState([]);
+  const [listCharacterSelect, setListCharacterSelect] = useState<JSX.Element[]>([]);
+  const [listLvlSelect, setListLvlSelect] = useState<JSX.Element[]>([]);
   const [chars, setChars] = useState(characters);
   const [levels, setLevel] = useState(level);
 
@@ -57,12 +57,16 @@ function SelectCharsLvl(props: EncounterCharacterProps) {
 
   const setCharsHandler = (value: number) => {
     setChars(value);
-    onChange({ numCharacters: value, level: levels });
+    if (onChange) {
+      onChange({ numCharacters: value, level: levels });
+    }
   };
 
   const setLevelHandler = (value: number) => {
     setLevel(value);
-    onChange({ numCharacters: chars, level: value });
+    if (onChange) {
+      onChange({ numCharacters: chars, level: value });
+    }
   };
 
   return (

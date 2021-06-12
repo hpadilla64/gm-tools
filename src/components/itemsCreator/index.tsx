@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Space, Divider, Select, Radio } from 'antd';
-import WeaponsData from '../../data/weapons/weaponsAbilities.json';
+import { Row, Col, Card, Divider, Select, Radio } from 'antd';
 import ItemAbilityList from './itemAbilityList';
-const { Option, OptGroup } = Select;
+import { IItemAbility } from '../../interfaces';
+const { Option } = Select;
 
 const MAX_ITEM_SLOTS: number = 10;
 
 function ItemsCreator() {
   const [itemType, setItemType] = useState(0);
   const [itemBonus, setItemBonus] = useState(1);
-  const [itemAbilities, setItemAbilities] = useState([]);
+  const [itemAbilities, setItemAbilities] = useState<IItemAbility[]>([]);
   const [availableItemSlots, setAvailableItemSlots] = useState(MAX_ITEM_SLOTS - 1);
   const [maxBonusAvailable, setMaxBonusAvailable] = useState(5);
 
@@ -59,7 +59,7 @@ function ItemsCreator() {
           <ItemAbilityList
             itemType={itemType}
             availableSlots={availableItemSlots}
-            onChange={(abilitiesList) => setItemAbilities(abilitiesList)}
+            onChange={(abilitiesList: IItemAbility[]) => setItemAbilities(abilitiesList)}
           />
           available item slots: {availableItemSlots}
         </Card>
