@@ -1,79 +1,76 @@
 import React, { useEffect, useState } from 'react';
 import { Select, List, Button } from 'antd';
+import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
 const { Option, OptGroup } = Select;
-import WeaponsData from '../../data/weapons/weaponsAbilities.json';
 import { IItemAbility } from '../../interfaces';
 
-function ItemAbilityList(props: {
-  itemType: number;
-  availableSlots: number;
-  onChange?: (list: Array<IItemAbility>) => void;
-}) {
-  const { itemType, availableSlots, onChange } = props;
-  const [abilitiesList, setAbilitiesList] = useState<JSX.Element[]>([]);
+function ItemAbilityList<
+  T extends {
+    abilitiesList: IItemAbility[];
+    selectedAbilitiesList: IItemAbility[];
+    availableSlots: number;
+    onChange: (list: IItemAbility[]) => void;
+  }
+>(props: T) {
+  const { abilitiesList, availableSlots, onChange, selectedAbilitiesList } = props;
+  const [groupedAbilitiesList, setGroupedAbilitiesList] = useState<JSX.Element[]>([]);
   const [itemAbility, setItemAbility] = useState(-1);
-  const [itemAbilitiesList, setItemsAbilitiesList] = useState<IItemAbility[]>([]);
-
-  const ITEM_TYPE_MAP = ['melee', 'ranged', 'ammo'];
 
   const addAbilityToItem = () => {
-    if (!itemAbilitiesList.includes(WeaponsData[itemAbility])) {
-      let updatedList: IItemAbility[] = [];
-      setItemAbility(-1);
-      setItemsAbilitiesList((prevAbilities) => {
-        updatedList = [...prevAbilities, WeaponsData[itemAbility]];
-        return updatedList;
-      });
-      if (onChange) {
-        onChange(updatedList);
-      }
+    if (!selectedAbilitiesList.some((ability) => ability.name === abilitiesList[itemAbility].name)) {
+      const updatedList = [...selectedAbilitiesList, abilitiesList[itemAbility]];
+      onChange(updatedList);
     }
   };
 
-  useEffect(() => {
-    const toSetAbilitiesList = () => {
-      /* abilitiesList.forEach((optionGroup) => {
-        // console.log(optionGroup.key, availableSlots);
-        if (optionGroup.key > availableSlots) {
-          const {
-            props: { children: optGroupChildren }
-          } = optionGroup;
-          optGroupChildren.forEach((child: any) => {
-            // child.props.disabled = true;
-          });
-        }
-      }); */
-      console.log(abilitiesList);
-      setAbilitiesList(abilitiesList);
-    };
-    toSetAbilitiesList();
-  }, [availableSlots]);
+  const removeItemAbility = (ability: IItemAbility) => {
+    const updatedList = selectedAbilitiesList.filter((abilityInList) => abilityInList.name !== ability.name);
+    onChange(updatedList);
+  };
 
   useEffect(() => {
-    const toSetupItemType = () => {
-      const groupsArray: Array<Array<any>> = [];
-      WeaponsData.forEach((ability, index) => {
-        const { category, name, bonus } = ability;
-        const isInCategory = category.includes(ITEM_TYPE_MAP[itemType]);
-        if (isInCategory) {
-          const optionComponent = (
-            <Option key={index} value={index} disabled={false}>
-              {name} {String(availableSlots < bonus)} {availableSlots} {bonus}
-            </Option>
-          );
-          groupsArray[bonus] ? groupsArray[bonus].push(optionComponent) : (groupsArray[bonus] = [optionComponent]);
-        }
-      });
-      const list: JSX.Element[] = groupsArray.map((group, index) => (
-        <OptGroup key={index} label={`+${index} abilities`}>
-          {group}
-        </OptGroup>
-      ));
-      setItemsAbilitiesList([]);
-      setAbilitiesList(list);
+    const groupAbilities = () => {
+      createSelectOptions();
+      if (itemAbility !== -1 || selectedAbilitiesList.length > 0) {
+        resetValues();
+      }
     };
-    toSetupItemType();
-  }, [itemType]);
+    groupAbilities();
+  }, [abilitiesList]);
+
+  useEffect(() => {
+    const groupAbilities = () => {
+      createSelectOptions();
+    };
+    groupAbilities();
+  }, [availableSlots]);
+
+  const resetValues = () => {
+    setItemAbility(-1);
+    onChange([]);
+  };
+
+  const createSelectOptions = () => {
+    const arrayAbilities: Array<Array<JSX.Element>> = [];
+    abilitiesList.forEach((ability, index) => {
+      const { bonus, name } = ability;
+      const optionElement = (
+        <Option key={index} value={index} disabled={availableSlots < bonus}>
+          {name}
+        </Option>
+      );
+      if (!arrayAbilities[bonus]) {
+        arrayAbilities[bonus] = [];
+      }
+      arrayAbilities[bonus].push(optionElement);
+    });
+    const groupedAbilities: JSX.Element[] = arrayAbilities.map((group, index) => (
+      <OptGroup key={index} label={`+${index} abilities`}>
+        {group}
+      </OptGroup>
+    ));
+    setGroupedAbilitiesList(groupedAbilities);
+  };
 
   return (
     <>
@@ -83,16 +80,41 @@ function ItemAbilityList(props: {
         onChange={(value) => setItemAbility(value)}
         optionFilterProp="name"
         style={{
-          width: '100%'
+          width: '80%',
+          marginRight: '.5em'
         }}
       >
-        <Option value={-1}>Without ability</Option>
-        {abilitiesList}
+        <Option value={-1}>No ability</Option>
+        {groupedAbilitiesList}
       </Select>
-      <Button type="primary" disabled={itemAbility < 0} onClick={addAbilityToItem}>
-        Add ability
-      </Button>
-      <List dataSource={itemAbilitiesList} renderItem={(item) => <List.Item>{item.name}</List.Item>} />
+      <Button
+        type="primary"
+        shape="circle"
+        icon={<PlusOutlined />}
+        onClick={addAbilityToItem}
+        disabled={itemAbility < 0}
+      />
+      <List
+        dataSource={selectedAbilitiesList}
+        locale={{
+          emptyText: 'No abilities assigned'
+        }}
+        renderItem={(item) => (
+          <List.Item
+            actions={[
+              <Button
+                type="primary"
+                danger
+                shape="circle"
+                icon={<DeleteFilled />}
+                onClick={() => removeItemAbility(item)}
+              />
+            ]}
+          >
+            {item.name}
+          </List.Item>
+        )}
+      />
     </>
   );
 }

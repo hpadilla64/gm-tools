@@ -29,9 +29,9 @@ export function calculateEncounter(
   let targetCR = totalAPL + CR_VALUES[parseDifficulty];
   targetCR = targetCR < 1 ? 0.5 : targetCR;
 
-  let handicapCR = 0;
-  if (isFavorableTerrain === true) handicapCR--;
-  if (isFavorableTerrain === false) handicapCR++;
+  let handicapCR;
+  if (isFavorableTerrain === true) handicapCR = -1;
+  if (isFavorableTerrain === false) handicapCR = 1;
 
   const xpBudget = calculateXPByCR(targetCR);
   const {
