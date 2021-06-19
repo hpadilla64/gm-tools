@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Select, List, Button } from 'antd';
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
-const { Option, OptGroup } = Select;
 import { IItemAbility } from '../../interfaces';
+const { Option, OptGroup } = Select;
 
 function ItemAbilityList<
   T extends {
@@ -65,7 +65,7 @@ function ItemAbilityList<
       arrayAbilities[bonus].push(optionElement);
     });
     const groupedAbilities: JSX.Element[] = arrayAbilities.map((group, index) => (
-      <OptGroup key={index} label={`+${index} abilities`}>
+      <OptGroup key={index} label={index === 0 ? 'Extra abilities' : `+${index} abilities`}>
         {group}
       </OptGroup>
     ));
@@ -99,6 +99,11 @@ function ItemAbilityList<
         locale={{
           emptyText: 'No abilities assigned'
         }}
+        header={
+          <span style={{ fontStyle: 'italic', fontSize: '.85em' }}>
+            <b>{availableSlots}</b> available ability bonus slots
+          </span>
+        }
         renderItem={(item) => (
           <List.Item
             actions={[
@@ -111,7 +116,7 @@ function ItemAbilityList<
               />
             ]}
           >
-            {item.name}
+            {item.name} (+{item.bonus})
           </List.Item>
         )}
       />

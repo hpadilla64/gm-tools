@@ -6,15 +6,20 @@ import ItemsCreator from './itemsCreator';
 const { Header, Sider, Content, Footer } = Layout;
 const { Title } = Typography;
 
+const appNames = {
+  encounterCalc: 'Encounter Calculator',
+  itemCreator: 'Basic Item Creator'
+};
+
 export const App = () => {
-  const [toolName, setToolName] = useState<string>('itemsCreator');
+  const [toolName, setToolName] = useState<string>('encounterCalc');
   const dmTools: IIndexable = {
     encounterCalc: {
-      title: 'Encounter Calculator',
+      title: appNames.encounterCalc,
       component: <EncounterCalculator />
     },
     itemsCreator: {
-      title: 'Item Creator',
+      title: appNames.itemCreator,
       component: <ItemsCreator />
     }
   };
@@ -43,8 +48,8 @@ export const App = () => {
             selectedKeys={[toolName]}
             onClick={toolSelectHandler}
           >
-            <Menu.Item key="encounterCalc">Encounter Calculator</Menu.Item>
-            <Menu.Item key="itemsCreator">Items Creator</Menu.Item>
+            <Menu.Item key="encounterCalc">{appNames.encounterCalc}</Menu.Item>
+            <Menu.Item key="itemsCreator">{appNames.itemCreator}</Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Divider, Select, Radio } from 'antd';
 import ItemAbilityList from './itemAbilityList';
-import WeaponsData from '../../data/weapons/weaponsAbilities.json';
+import ItemReport from './itemReport';
 import { ITEM_TYPE_MAP } from '../../tools/maps';
 import { IItemAbility } from '../../interfaces';
 const { Option } = Select;
+
+import WeaponsData from '../../data/weapons/weaponsAbilities.json';
+import ItemPrices from '../../data/weapons/weaponPriceByBonus.json';
 
 const MAX_ITEM_SLOTS: number = 10;
 
@@ -16,34 +19,26 @@ function ItemsCreator() {
   const [abilitiesList, setAbilitiesList] = useState<IItemAbility[]>([]);
   const [selectedAbilities, setSelectedAbilities] = useState<IItemAbility[]>([]);
   const [maxBonusAvailable, setMaxBonusAvailable] = useState(MAX_ITEM_SLOTS / 2);
+  const [itemPrice, setItemPrice] = useState(ItemPrices[0]);
+  const [itemPriceAbility, setItemPriceAbility] = useState(0);
 
-  /* useEffect(() => {
-    const toCalculateItemSlots = () => {
-      const abilitiesSlots = itemAbilities.reduce((accumulate, current) => accumulate + current.bonus, 0);
-      const maxBonus = MAX_ITEM_SLOTS - abilitiesSlots;
-      const availableItemSlots = MAX_ITEM_SLOTS - abilitiesSlots - itemBonus;
-      if (itemBonus > maxBonus) {
-        setItemBonus(maxBonus);
-      }
-      setMaxBonusAvailable(maxBonus);
-      setAvailableItemSlots(availableItemSlots);
-    };
-    toCalculateItemSlots();
-  }, [itemBonus, itemAbilities]);
- */
   useEffect(() => {
     const setAvailableSlots = () => {
       setAvailableItemSlots(MAX_ITEM_SLOTS - (itemBonus + abilitiesBonus));
       setMaxBonusAvailable(MAX_ITEM_SLOTS - abilitiesBonus);
+      setItemPrice(itemPriceAbility + ItemPrices[itemBonus + abilitiesBonus - 1]);
     };
     setAvailableSlots();
-  }, [itemBonus, abilitiesBonus]);
+  }, [itemBonus, abilitiesBonus, itemPriceAbility]);
 
   const handlerAbilitiesBonus = (selectedAbilitiesList: IItemAbility[]) => {
     let updatedAbilitiesBonus = 0;
+    let priceAbility = 0;
     selectedAbilitiesList.forEach((ability) => {
       updatedAbilitiesBonus += ability.bonus;
+      priceAbility += ability.base;
     });
+    setItemPriceAbility(priceAbility);
     setAbilitiesBonus(updatedAbilitiesBonus);
     setSelectedAbilities(selectedAbilitiesList);
   };
@@ -100,17 +95,12 @@ function ItemsCreator() {
         </Card>
       </Col>
       <Col span={12}>
-        report
-        <div>
-          itemType: {itemType}
-          <br />
-          itemBonus: {itemBonus}
-          <br />
-          available item slots: {availableItemSlots}
-          <br />
-          {/* JSON.stringify(abilitiesList) */}
-        </div>
-        {JSON.stringify(selectedAbilities)}
+        <ItemReport
+          itemPrice={itemPrice}
+          itemType={itemType}
+          itemBonus={itemBonus}
+          selectedAbilities={selectedAbilities}
+        />
       </Col>
     </Row>
   );

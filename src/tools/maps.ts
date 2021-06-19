@@ -17,3 +17,4 @@ export const SUBLEVELS_TREASURE_INDEX: IIndexable = {
   '0.500': 4
 };
 export const ITEM_TYPE_MAP = ['melee', 'ranged', 'ammo'];
+export const ITEM_TYPE_NAME_MAP = ['Melee weapon', 'Ranged weapon', 'Ammo'];
