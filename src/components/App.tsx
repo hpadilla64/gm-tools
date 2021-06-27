@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Typography } from 'antd';
 import EncounterCalculator from './encounterCalculator';
-import { IIndexable } from '../interfaces';
 import ItemsCreator from './itemsCreator';
+import InitiativeTracker from './initiativeTracker';
+import { IIndexable } from '../interfaces';
 const { Header, Sider, Content, Footer } = Layout;
 const { Title } = Typography;
 
 const appNames = {
   encounterCalc: 'Encounter Calculator',
-  itemCreator: 'Basic Item Creator'
+  itemCreator: 'Basic Item Creator',
+  initiativeTracker: 'Initiative Tracker'
 };
 
 export const App = () => {
-  const [toolName, setToolName] = useState<string>('encounterCalc');
+  const [toolName, setToolName] = useState<string>('initiativeTracker');
   const dmTools: IIndexable = {
     encounterCalc: {
       title: appNames.encounterCalc,
@@ -21,6 +23,10 @@ export const App = () => {
     itemsCreator: {
       title: appNames.itemCreator,
       component: <ItemsCreator />
+    },
+    initiativeTracker: {
+      title: appNames.initiativeTracker,
+      component: <InitiativeTracker />
     }
   };
 

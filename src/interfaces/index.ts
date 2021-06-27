@@ -6,6 +6,7 @@ import { IIndexable } from './IIndexable';
 import { GenericProps } from './IGenericProps';
 import { EncounterCalculated, EncounterTreasure } from './encounterCalculator/encounterCalculated';
 import { EncounterReport } from './encounterCalculator/encounterReport';
+import { ITrackerCharacter } from './initiativeTracker/ITrackerCharacter';
 
 export {
   EncounterCharacterGroup,
@@ -16,5 +17,6 @@ export {
   GenericProps,
   EncounterCalculated,
   EncounterTreasure,
-  EncounterReport
+  EncounterReport,
+  ITrackerCharacter
 };
