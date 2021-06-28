@@ -11,10 +11,20 @@ function InitiativeTracker() {
     setCharactersList((prevState) => [...prevState, character]);
   };
 
+  const arrangeListHandler = (arrangedList: ITrackerCharacter[]) => {
+    setCharactersList([...arrangedList]);
+  };
+
   return (
     <Card>
-      <AddCharToTracker onAdd={setCharsListHandler} charactersList={charactersList} />
-      <CharacterListTracker charactersList={charactersList} />
+      <AddCharToTracker
+        onAdd={setCharsListHandler}
+        charactersList={charactersList}
+        style={{
+          marginBottom: '1em'
+        }}
+      />
+      <CharacterListTracker charactersList={charactersList} onArrange={arrangeListHandler} />
     </Card>
   );
 }

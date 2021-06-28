@@ -7,9 +7,10 @@ import { isEmptyString } from '../../tools/snippets';
 interface AddCharProps {
   charactersList: ITrackerCharacter[];
   onAdd: (character: ITrackerCharacter) => void;
+  style?: React.CSSProperties;
 }
 
-function AddCharToTracker({ onAdd, charactersList }: AddCharProps) {
+function AddCharToTracker({ onAdd, charactersList, style }: AddCharProps) {
   const [newCharName, setNewCharName] = useState('');
 
   const setNameHandler = (event: BaseSyntheticEvent) => {
@@ -22,12 +23,13 @@ function AddCharToTracker({ onAdd, charactersList }: AddCharProps) {
       if (!!!charExists) {
         const tempId = Date.now();
         onAdd({ id: tempId, name: newCharName, initiative: 0 });
+        setNewCharName('');
       }
     }
   };
 
   return (
-    <div>
+    <div style={{ ...style }}>
       <Input
         style={{
           width: 'calc(100% - 4em)',
@@ -35,6 +37,8 @@ function AddCharToTracker({ onAdd, charactersList }: AddCharProps) {
         }}
         value={newCharName}
         onChange={setNameHandler}
+        onPressEnter={clickHandler}
+        placeholder="Add a character name"
       />
       <Button onClick={clickHandler} type="primary" shape="circle" icon={<PlusOutlined />} disabled={false} />
     </div>

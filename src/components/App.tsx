@@ -13,8 +13,10 @@ const appNames = {
   initiativeTracker: 'Initiative Tracker'
 };
 
+const appVersion = '0.0.1';
+
 export const App = () => {
-  const [toolName, setToolName] = useState<string>('initiativeTracker');
+  const [toolName, setToolName] = useState<string>('encounterCalc');
   const dmTools: IIndexable = {
     encounterCalc: {
       title: appNames.encounterCalc,
@@ -43,7 +45,21 @@ export const App = () => {
     >
       <Header>
         <div className="logo">
-          <Title style={{ color: '#FFF', fontSize: '1em', lineHeight: 'inherit' }}>GM Tools</Title>
+          <Title style={{ color: '#FFF', fontSize: '1em', lineHeight: 'inherit' }}>
+            GM Tools
+            <span
+              style={{
+                padding: '.25em',
+                fontSize: '.8em',
+                borderRadius: '.25em',
+                backgroundColor: '#ddd',
+                color: '#333',
+                marginLeft: '.5em'
+              }}
+            >
+              v.{appVersion}
+            </span>
+          </Title>
         </div>
       </Header>
       <Layout>
@@ -54,8 +70,9 @@ export const App = () => {
             selectedKeys={[toolName]}
             onClick={toolSelectHandler}
           >
-            <Menu.Item key="encounterCalc">{appNames.encounterCalc}</Menu.Item>
-            <Menu.Item key="itemsCreator">{appNames.itemCreator}</Menu.Item>
+            {Object.entries(dmTools).map(([key, value]) => (
+              <Menu.Item key={key}>{value.title}</Menu.Item>
+            ))}
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
