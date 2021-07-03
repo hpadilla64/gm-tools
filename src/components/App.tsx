@@ -67,7 +67,7 @@ export const App = () => {
         </div>
       </Header>
       <Layout>
-        <Sider width={200} breakpoint="sm">
+        <Sider width={200} breakpoint="md">
           <Menu
             mode="inline"
             style={{ height: '100%', borderRight: 0 }}

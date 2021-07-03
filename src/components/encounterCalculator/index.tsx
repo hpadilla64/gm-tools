@@ -167,7 +167,7 @@ function EncounterCalculator() {
 
   return (
     <Row gutter={16}>
-      <Col span={16} xs={24}>
+      <Col span={16} xs={24} sm={12} md={16}>
         <Card>
           <Row gutter={16} align="top">
             <Col span={12} xs={24} md={12}>
@@ -247,7 +247,7 @@ function EncounterCalculator() {
           </Row>
         </Card>
       </Col>
-      <Col span={8} xs={24}>
+      <Col span={8} xs={24} sm={12} md={8}>
         <EncounterReport {...encounterInfo} />
       </Col>
     </Row>
