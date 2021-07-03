@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "devstart": "webpack serve",
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "hpadilla64",
