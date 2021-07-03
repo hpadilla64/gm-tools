@@ -59,7 +59,7 @@ function ItemsCreator() {
 
   return (
     <Row gutter={16}>
-      <Col span={12}>
+      <Col span={12} xs={24} md={12}>
         <Card>
           <Divider orientation="left">Item type</Divider>
           <Select value={itemType} onChange={(value) => setItemType(value)}>
@@ -94,7 +94,7 @@ function ItemsCreator() {
           />
         </Card>
       </Col>
-      <Col span={12}>
+      <Col span={12} xs={24} md={12}>
         <ItemReport
           itemPrice={itemPrice}
           itemType={itemType}

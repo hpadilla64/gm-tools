@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Typography } from 'antd';
+import { CalculatorOutlined, AppstoreAddOutlined, OrderedListOutlined } from '@ant-design/icons';
 import EncounterCalculator from './encounterCalculator';
 import ItemsCreator from './itemsCreator';
 import InitiativeTracker from './initiativeTracker';
@@ -20,15 +21,18 @@ export const App = () => {
   const dmTools: IIndexable = {
     encounterCalc: {
       title: appNames.encounterCalc,
-      component: <EncounterCalculator />
+      component: <EncounterCalculator />,
+      icon: <CalculatorOutlined />
     },
     itemsCreator: {
       title: appNames.itemCreator,
-      component: <ItemsCreator />
+      component: <ItemsCreator />,
+      icon: <AppstoreAddOutlined />
     },
     initiativeTracker: {
       title: appNames.initiativeTracker,
-      component: <InitiativeTracker />
+      component: <InitiativeTracker />,
+      icon: <OrderedListOutlined />
     }
   };
 
@@ -63,7 +67,7 @@ export const App = () => {
         </div>
       </Header>
       <Layout>
-        <Sider width={200}>
+        <Sider width={200} breakpoint="sm">
           <Menu
             mode="inline"
             style={{ height: '100%', borderRight: 0 }}
@@ -71,7 +75,9 @@ export const App = () => {
             onClick={toolSelectHandler}
           >
             {Object.entries(dmTools).map(([key, value]) => (
-              <Menu.Item key={key}>{value.title}</Menu.Item>
+              <Menu.Item key={key} icon={value.icon}>
+                {value.title}
+              </Menu.Item>
             ))}
           </Menu>
         </Sider>

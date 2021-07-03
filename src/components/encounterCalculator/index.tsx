@@ -167,10 +167,10 @@ function EncounterCalculator() {
 
   return (
     <Row gutter={16}>
-      <Col span={16}>
+      <Col span={16} xs={24}>
         <Card>
           <Row gutter={16} align="top">
-            <Col span={12}>
+            <Col span={12} xs={24} md={12}>
               <Card
                 title="Enemies"
                 extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => addItem(true)} />}
@@ -194,7 +194,7 @@ function EncounterCalculator() {
                 />
               </Card>
             </Col>
-            <Col span={12}>
+            <Col span={12} xs={24} md={12}>
               <Card
                 title="Players"
                 extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => addItem()} />}
@@ -222,28 +222,32 @@ function EncounterCalculator() {
           <Row>
             <Col span={24}>
               <Card title="Encounter modifiers">
-                <Space direction="horizontal">
-                  <Text strong>Encounter difficulty:</Text>
-                  <Select value={encounterDifficulty} onSelect={(value) => setEncounterDifficulty(value)}>
-                    <Option value="easy">Easy</Option>
-                    <Option value="average">Average</Option>
-                    <Option value="challenging">Challenging</Option>
-                    <Option value="hard">Hard</Option>
-                    <Option value="epic">Epic</Option>
-                  </Select>
-                  <Text strong>Terrain advantage:</Text>
-                  <Select value={terrainValue} onSelect={(value) => setTerrainValue(value)}>
-                    <Option value="null">Neutral</Option>
-                    <Option value="true">Favorable for PCs</Option>
-                    <Option value="false">Unfavorable for PCs</Option>
-                  </Select>
+                <Space direction="horizontal" wrap>
+                  <Space direction="horizontal">
+                    <Text strong>Encounter difficulty:</Text>
+                    <Select value={encounterDifficulty} onSelect={(value) => setEncounterDifficulty(value)}>
+                      <Option value="easy">Easy</Option>
+                      <Option value="average">Average</Option>
+                      <Option value="challenging">Challenging</Option>
+                      <Option value="hard">Hard</Option>
+                      <Option value="epic">Epic</Option>
+                    </Select>
+                  </Space>
+                  <Space direction="horizontal">
+                    <Text strong>Terrain advantage:</Text>
+                    <Select value={terrainValue} onSelect={(value) => setTerrainValue(value)}>
+                      <Option value="null">Neutral</Option>
+                      <Option value="true">Favorable for PCs</Option>
+                      <Option value="false">Unfavorable for PCs</Option>
+                    </Select>
+                  </Space>
                 </Space>
               </Card>
             </Col>
           </Row>
         </Card>
       </Col>
-      <Col span={8}>
+      <Col span={8} xs={24}>
         <EncounterReport {...encounterInfo} />
       </Col>
     </Row>
