@@ -1,4 +1,4 @@
-export default interface EncounterCharacterGroup {
+export interface EncounterCharacterGroup {
   numCharacters: number;
   level: number;
 }

@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
-    "outDir": "./out/",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "target": "esnext",
-    "module": "commonjs",
-    "jsx": "react",
-    "allowJs": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    /* Language and environment */
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "jsx": "react-jsx",
+
+    /* Modules (bundled by webpack + swc-loader; tsc only type-checks) */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    /* Type checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"]
 }

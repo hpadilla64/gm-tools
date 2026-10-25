@@ -1,52 +1,64 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-  entry: './src/app/index.tsx',
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, 'out'),
-    compress: true,
-    port: 9000
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
-      },
-      {
-        test: /\.less$/i,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'less-loader',
+module.exports = (_env, argv) => {
+  const isProduction = argv.mode === 'production';
+  const styleLoader = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
+
+  return {
+    entry: './src/app/index.tsx',
+    mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? 'source-map' : 'eval-source-map',
+    devServer: {
+      static: path.join(__dirname, 'out'),
+      compress: true,
+      port: 9000,
+      hot: true
+    },
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'swc-loader',
             options: {
-              webpackImporter: false,
-              lessOptions: {
-                javascriptEnabled: true
+              jsc: {
+                parser: { syntax: 'typescript', tsx: true },
+                transform: {
+                  react: { runtime: 'automatic', development: !isProduction, refresh: false }
+                },
+                target: 'es2022'
               }
             }
           }
-        ]
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js']
-  },
-  output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, 'out')
-  }
+        },
+        {
+          test: /\.css$/i,
+          use: [styleLoader, 'css-loader']
+        },
+        {
+          test: /\.less$/i,
+          use: [styleLoader, 'css-loader', 'less-loader']
+        }
+      ]
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js']
+    },
+    plugins: [
+      new HtmlWebpackPlugin({ template: './src/index.html' }),
+      ...(isProduction ? [new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' })] : [])
+    ],
+    output: {
+      filename: isProduction ? '[name].[contenthash].js' : 'app.js',
+      path: path.resolve(__dirname, 'out'),
+      clean: true
+    },
+    performance: {
+      // antd is large; don't warn about the vendor bundle size.
+      hints: false
+    }
+  };
 };

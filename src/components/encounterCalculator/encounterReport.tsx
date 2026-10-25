@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Divider, Space, Typography, Tooltip } from 'antd';
+import { useEffect, useState } from 'react';
+import { Card, Divider, Space, Typography, Tooltip, type GetProp } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { GenericProps, IIndexable } from '../../interfaces';
-import { BaseType } from 'antd/lib/typography/Base';
-import { commaNumber } from '../../app/tools/snippets';
+import { EncounterReport as IEncounterReport, IIndexable } from '../../interfaces';
+import { commaNumber } from '../../tools/snippets';
 const { Text } = Typography;
+type BaseType = GetProp<typeof Text, 'type'>;
 const ENCOUNTER_LABELS_MAP: IIndexable = {
   totalAPL: 'Average Party Level',
   totalCharacters: 'Total # of characters',
@@ -15,24 +15,38 @@ const ENCOUNTER_LABELS_MAP: IIndexable = {
   encounterCR: 'Current Encounter CR',
   encounterXp: 'Current Encounter XP',
   xpCost: 'XP Cost',
-  treasure: 'Loot'
+  treasure: 'Loot',
+  slow: 'Slow',
+  medium: 'Medium',
+  fast: 'Fast'
+};
+const SUBLEVELS_LABELS: IIndexable = {
+  '0.125': '1/8',
+  '0.167': '1/6',
+  '0.250': '1/4',
+  '0.333': '1/3',
+  '0.500': '1/2'
 };
 
-function EncounterInfoBox(props: GenericProps) {
-  const { info } = props;
+function EncounterInfoBox<T extends { info: object; suffix?: string }>(props: T) {
+  const { info, suffix = '' } = props;
 
   return (
-    <Space direction="vertical">
-      {Object.entries(info).map(([key, value]: [string, number]) => (
+    <Space orientation="vertical">
+      {Object.entries(info).map(([key, value]) => (
         <Text key={key}>
-          {ENCOUNTER_LABELS_MAP[key]}: <Text strong>{value < 1 ? '1/2' : value}</Text>
+          {ENCOUNTER_LABELS_MAP[key]}:{' '}
+          <Text strong>
+            {value < 1 ? SUBLEVELS_LABELS[value.toFixed(3)] : commaNumber(value)}
+            {suffix}
+          </Text>
         </Text>
       ))}
     </Space>
   );
 }
 
-function EncounterReport(props: GenericProps) {
+function EncounterReport(props: IEncounterReport) {
   const { party, encounter, xp, treasure } = props;
   const [xpCostIndicator, setXpCostIndicator] = useState<BaseType>('success');
 
@@ -43,7 +57,7 @@ function EncounterReport(props: GenericProps) {
         case xp.xpCost > xp.xpBudget:
           budgetLabel = 'danger';
           break;
-        case xp.xpCost < xp.xpBudget * 0.75:
+        case xp.xpCost < xp.xpBudget * 0.95:
           budgetLabel = 'warning';
           break;
         // no default
@@ -55,23 +69,23 @@ function EncounterReport(props: GenericProps) {
 
   return (
     <Card title="Encounter Information">
-      <Divider orientation="left">Party</Divider>
+      <Divider titlePlacement="start">Party</Divider>
       <EncounterInfoBox info={party} />
-      <Divider orientation="left">Encounter</Divider>
+      <Divider titlePlacement="start">Encounter</Divider>
       <EncounterInfoBox info={encounter} />
-      <Divider orientation="left">XP</Divider>
-      <Space direction="vertical">
+      <Divider titlePlacement="start">XP</Divider>
+      <Space orientation="vertical">
         <Text>
           <Tooltip title="Individual XP awards listed for a group of the appropriate party size">
             <InfoCircleOutlined />
           </Tooltip>{' '}
-          {ENCOUNTER_LABELS_MAP['xpIndividual']}: <Text strong>{xp.xpIndividual}</Text>
+          {ENCOUNTER_LABELS_MAP['xpIndividual']}: <Text strong>{commaNumber(xp.xpIndividual)}</Text>
         </Text>
         <Text strong>
           <Tooltip title="Total XP divided by the number of characters">
             <InfoCircleOutlined />
           </Tooltip>{' '}
-          {ENCOUNTER_LABELS_MAP['xpIndividualExact']}: <Text>{xp.xpIndividualExact}</Text>
+          {ENCOUNTER_LABELS_MAP['xpIndividualExact']}: <Text>{commaNumber(xp.xpIndividualExact)}</Text>
         </Text>
         <Text>
           Used{' '}
@@ -81,6 +95,8 @@ function EncounterReport(props: GenericProps) {
           of <Text strong>{commaNumber(xp.xpBudget)}</Text> xp for this encounter.
         </Text>
       </Space>
+      <Divider titlePlacement="start">Treasure</Divider>
+      <EncounterInfoBox info={treasure} suffix="gp" />
     </Card>
   );
 }

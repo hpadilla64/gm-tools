@@ -1,17 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { Button, List, Select, Row, Col, Card, Typography, Space, Divider } from 'antd';
+import { useEffect, useState } from 'react';
+import { Button, List, Select, Row, Col, Card, Typography, Space } from 'antd';
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
-import { GenericProps, EncounterCharacterGroup, IIndexable } from '../../interfaces';
-import { calculateEncounter } from '../../data/pathfinder/encounterCalculator';
-const { Option } = Select;
+import { EncounterCharacterGroup, EncounterReport as IEncounterReport } from '../../interfaces';
+import { calculateEncounter } from '../../data/encounterCalculator/encounterCalculator';
 const { Text } = Typography;
 
 // UI
 import SelectCharsLvl from './selectCharsLvls';
 import EncounterReport from './encounterReport';
 
-function ListItem(props: GenericProps) {
-  const { numCharacters, level, areEnemies, id, onDeleteItem, onChange, showActions, maxLevel } = props;
+const baseEncounterReport = {
+  party: {
+    totalAPL: 0,
+    totalCharacters: 0
+  },
+  encounter: {
+    targetCR: 0,
+    encounterCR: 0
+  },
+  xp: {
+    xpIndividual: 0,
+    xpIndividualExact: 0,
+    xpBudget: 0,
+    xpCost: 0
+  },
+  treasure: {
+    slow: 0,
+    medium: 0,
+    fast: 0
+  }
+};
+
+// Interfaces
+interface IListItem {
+  numCharacters: number;
+  level: number;
+  id: number;
+  maxLevel: number;
+  areEnemies?: boolean;
+  showActions?: boolean;
+  maxCharacters: number;
+  onDeleteItem: (id: number, areEnemies: boolean) => void;
+  onChange: (encounterGroup: EncounterCharacterGroup, id: number, areEnemies: boolean) => void;
+}
+
+function ListItem(props: IListItem) {
+  const {
+    numCharacters,
+    level,
+    areEnemies = false,
+    id,
+    onDeleteItem,
+    onChange,
+    showActions,
+    maxLevel,
+    maxCharacters
+  } = props;
 
   const removeItem = () => onDeleteItem(id, areEnemies);
   const updateItem = (encounterGroup: EncounterCharacterGroup) => onChange(encounterGroup, id, areEnemies);
@@ -21,7 +65,7 @@ function ListItem(props: GenericProps) {
       actions={
         showActions
           ? [<Button type="primary" danger shape="circle" icon={<DeleteFilled />} onClick={removeItem} />]
-          : null
+          : undefined
       }
       style={{ alignItems: 'flex-end' }}
     >
@@ -32,27 +76,22 @@ function ListItem(props: GenericProps) {
           areEnemies={areEnemies}
           onChange={updateItem}
           maxLevel={maxLevel}
+          maxCharacters={maxCharacters}
         />
       </div>
     </List.Item>
   );
 }
 
-interface EncounterInfo {
-  party: object;
-  encounter: object;
-  xp: object;
-  treasure: object;
-}
-
 function EncounterCalculator() {
   const baseEncounterGroup: EncounterCharacterGroup = { numCharacters: 1, level: 1 };
   const [enemiesItems, setEnemiesItems] = useState<EncounterCharacterGroup[]>([baseEncounterGroup]);
   const [charactersItems, setCharactersItems] = useState<EncounterCharacterGroup[]>([baseEncounterGroup]);
-  const [terrainValue, setTerrainValue] = useState(null);
+  const [terrainValue, setTerrainValue] = useState('null');
   const [encounterDifficulty, setEncounterDifficulty] = useState('average');
-  const [encounterInfo, setEncounterInfo] = useState<EncounterInfo>({ party: {}, encounter: {}, xp: {}, treasure: {} });
-  const [maxLevel, setMaxLevel] = useState(30);
+  const [encounterInfo, setEncounterInfo] = useState<IEncounterReport>(baseEncounterReport);
+  // const [maxLevel, setMaxLevel] = useState(30);
+  // const [maxCharacters, setMaxCharacters] = useState(100);
   let updateList;
 
   const addItem = (isEnemy?: boolean) => {
@@ -63,8 +102,8 @@ function EncounterCalculator() {
 
   const removeItem = (elementId: number, isEnemy: boolean) => {
     updateList = isEnemy
-      ? enemiesItems.filter((item, index) => index !== elementId)
-      : charactersItems.filter((item, index) => index !== elementId);
+      ? enemiesItems.filter((_item, index) => index !== elementId)
+      : charactersItems.filter((_item, index) => index !== elementId);
     return updateStateAndCalculate(updateList, isEnemy);
   };
 
@@ -83,122 +122,142 @@ function EncounterCalculator() {
 
   useEffect(() => {
     const toCalculateEncounter = () => {
-      const parseTerrain = terrainValue ? terrainValue === 'true' : terrainValue;
-      return calculateEncounter(charactersItems, enemiesItems, encounterDifficulty, parseTerrain);
-    };
-    const {
-      totalAPL,
-      totalCharacters,
-      targetCR,
-      xpBudget,
-      xpIndividual,
-      xpIndividualExact,
-      encounterCR,
-      encounterXp,
-      xpCost,
-      treasure
-    } = toCalculateEncounter();
-    setEncounterInfo({
-      party: {
+      let parseTerrain = null;
+      switch (terrainValue) {
+        case 'true':
+          parseTerrain = true;
+          break;
+        case 'false':
+          parseTerrain = false;
+          break;
+        // no default
+      }
+      const {
         totalAPL,
-        totalCharacters
-      },
-      encounter: {
+        totalCharacters,
         targetCR,
-        encounterCR
-      },
-      xp: {
+        xpBudget,
         xpIndividual,
         xpIndividualExact,
-        xpBudget,
-        xpCost
-      },
-      treasure
-    });
+        encounterCR,
+        xpCost,
+        treasure
+      } = calculateEncounter(charactersItems, enemiesItems, encounterDifficulty, parseTerrain);
+      setEncounterInfo({
+        party: {
+          totalAPL,
+          totalCharacters
+        },
+        encounter: {
+          targetCR,
+          encounterCR
+        },
+        xp: {
+          xpIndividual,
+          xpIndividualExact,
+          xpBudget,
+          xpCost
+        },
+        treasure
+      });
+    };
+    toCalculateEncounter();
   }, [enemiesItems, charactersItems, terrainValue, encounterDifficulty]);
 
   return (
-    <>
-      <Row gutter={16}>
-        <Col span={16}>
-          <Card>
-            <Row gutter={16} align="middle">
-              <Col span={12}>
-                <Card
-                  title="Enemies"
-                  extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => addItem(true)} />}
-                >
-                  <List
-                    dataSource={enemiesItems}
-                    itemLayout="horizontal"
-                    renderItem={(encounterGroup, index) => (
-                      <ListItem
-                        {...encounterGroup}
-                        onChange={updateItem}
-                        onDeleteItem={removeItem}
-                        areEnemies
-                        showActions={enemiesItems.length > 1}
-                        id={index}
-                        key={index}
-                        maxLevel={maxLevel}
-                      />
-                    )}
-                  />
-                </Card>
-              </Col>
-              <Col span={12}>
-                <Card
-                  title="Players"
-                  extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => addItem()} />}
-                >
-                  <List
-                    dataSource={charactersItems}
-                    itemLayout="horizontal"
-                    renderItem={(encounterGroup, index) => (
-                      <ListItem
-                        {...encounterGroup}
-                        onChange={updateItem}
-                        onDeleteItem={removeItem}
-                        showActions={charactersItems.length > 1}
-                        id={index}
-                        key={index}
-                        maxLevel={maxLevel}
-                      />
-                    )}
-                  />
-                </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col span={24}>
-                <Card title="Encounter modifiers">
-                  <Space direction="horizontal">
-                    <Text strong>Encounter difficulty</Text>
-                    <Select value={encounterDifficulty} onSelect={(value) => setEncounterDifficulty(value)}>
-                      <Option value="easy">Easy</Option>
-                      <Option value="average">Average</Option>
-                      <Option value="challenging">Challenging</Option>
-                      <Option value="hard">Hard</Option>
-                      <Option value="epic">Epic</Option>
-                    </Select>
-                    <Text strong>Terrain advantage</Text>
-                    <Select value={terrainValue} onSelect={(value) => setTerrainValue(value)}>
-                      <Option value={null}>Neutral</Option>
-                      <Option value="true">Favorable for PCs</Option>
-                      <Option value="false">Unfavorable for PCs</Option>
-                    </Select>
+    <Row gutter={16}>
+      <Col span={16} xs={24} sm={12} md={16}>
+        <Card>
+          <Row gutter={16} align="top">
+            <Col span={12} xs={24} md={12}>
+              <Card
+                title="Enemies"
+                extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => addItem(true)} />}
+              >
+                <List
+                  dataSource={enemiesItems}
+                  itemLayout="horizontal"
+                  renderItem={(encounterGroup, index) => (
+                    <ListItem
+                      {...encounterGroup}
+                      onChange={updateItem}
+                      onDeleteItem={removeItem}
+                      areEnemies
+                      showActions={enemiesItems.length > 1}
+                      id={index}
+                      key={index}
+                      maxLevel={40}
+                      maxCharacters={100}
+                    />
+                  )}
+                />
+              </Card>
+            </Col>
+            <Col span={12} xs={24} md={12}>
+              <Card
+                title="Players"
+                extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => addItem()} />}
+              >
+                <List
+                  dataSource={charactersItems}
+                  itemLayout="horizontal"
+                  renderItem={(encounterGroup, index) => (
+                    <ListItem
+                      {...encounterGroup}
+                      onChange={updateItem}
+                      onDeleteItem={removeItem}
+                      showActions={charactersItems.length > 1}
+                      id={index}
+                      key={index}
+                      maxLevel={20}
+                      maxCharacters={20}
+                    />
+                  )}
+                />
+              </Card>
+            </Col>
+          </Row>
+          <br />
+          <Row>
+            <Col span={24}>
+              <Card title="Encounter modifiers">
+                <Space orientation="horizontal" wrap>
+                  <Space orientation="horizontal">
+                    <Text strong>Encounter difficulty:</Text>
+                    <Select
+                      value={encounterDifficulty}
+                      onSelect={(value) => setEncounterDifficulty(value)}
+                      options={[
+                        { value: 'easy', label: 'Easy' },
+                        { value: 'average', label: 'Average' },
+                        { value: 'challenging', label: 'Challenging' },
+                        { value: 'hard', label: 'Hard' },
+                        { value: 'epic', label: 'Epic' }
+                      ]}
+                    />
                   </Space>
-                </Card>
-              </Col>
-            </Row>
-          </Card>
-        </Col>
-        <Col span={8}>
-          <EncounterReport {...encounterInfo} />
-        </Col>
-      </Row>
-    </>
+                  <Space orientation="horizontal">
+                    <Text strong>Terrain advantage:</Text>
+                    <Select
+                      value={terrainValue}
+                      onSelect={(value) => setTerrainValue(value)}
+                      options={[
+                        { value: 'null', label: 'Neutral' },
+                        { value: 'true', label: 'Favorable for PCs' },
+                        { value: 'false', label: 'Unfavorable for PCs' }
+                      ]}
+                    />
+                  </Space>
+                </Space>
+              </Card>
+            </Col>
+          </Row>
+        </Card>
+      </Col>
+      <Col span={8} xs={24} sm={12} md={8}>
+        <EncounterReport {...encounterInfo} />
+      </Col>
+    </Row>
   );
 }
 
