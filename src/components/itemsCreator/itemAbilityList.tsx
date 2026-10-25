@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Select, List, Button } from 'antd';
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
 import { IItemAbility } from '../../interfaces';
-const { Option, OptGroup } = Select;
 
 function ItemAbilityList<
   T extends {
@@ -13,7 +12,6 @@ function ItemAbilityList<
   }
 >(props: T) {
   const { abilitiesList, availableSlots, onChange, selectedAbilitiesList } = props;
-  const [groupedAbilitiesList, setGroupedAbilitiesList] = useState<JSX.Element[]>([]);
   const [itemAbility, setItemAbility] = useState(-1);
 
   const addAbilityToItem = () => {
@@ -29,48 +27,27 @@ function ItemAbilityList<
   };
 
   useEffect(() => {
-    const groupAbilities = () => {
-      createSelectOptions();
-      if (itemAbility !== -1 || selectedAbilitiesList.length > 0) {
-        resetValues();
-      }
-    };
-    groupAbilities();
+    if (itemAbility !== -1 || selectedAbilitiesList.length > 0) {
+      resetValues();
+    }
   }, [abilitiesList]);
-
-  useEffect(() => {
-    const groupAbilities = () => {
-      createSelectOptions();
-    };
-    groupAbilities();
-  }, [availableSlots]);
 
   const resetValues = () => {
     setItemAbility(-1);
     onChange([]);
   };
 
-  const createSelectOptions = () => {
-    const arrayAbilities: Array<Array<JSX.Element>> = [];
+  const abilityOptions = useMemo(() => {
+    const groups: { label: string; options: { value: number; label: string; disabled: boolean }[] }[] = [];
     abilitiesList.forEach((ability, index) => {
       const { bonus, name } = ability;
-      const optionElement = (
-        <Option key={index} value={index} disabled={availableSlots < bonus}>
-          {name}
-        </Option>
-      );
-      if (!arrayAbilities[bonus]) {
-        arrayAbilities[bonus] = [];
+      if (!groups[bonus]) {
+        groups[bonus] = { label: bonus === 0 ? 'Extra abilities' : `+${bonus} abilities`, options: [] };
       }
-      arrayAbilities[bonus].push(optionElement);
+      groups[bonus].options.push({ value: index, label: name, disabled: availableSlots < bonus });
     });
-    const groupedAbilities: JSX.Element[] = arrayAbilities.map((group, index) => (
-      <OptGroup key={index} label={index === 0 ? 'Extra abilities' : `+${index} abilities`}>
-        {group}
-      </OptGroup>
-    ));
-    setGroupedAbilitiesList(groupedAbilities);
-  };
+    return [{ value: -1, label: 'No ability' }, ...groups.filter(Boolean)];
+  }, [abilitiesList, availableSlots]);
 
   return (
     <>
@@ -78,15 +55,13 @@ function ItemAbilityList<
         value={itemAbility}
         placeholder="Select an ability"
         onChange={(value) => setItemAbility(value)}
-        optionFilterProp="name"
+        optionFilterProp="label"
+        options={abilityOptions}
         style={{
           width: '80%',
           marginRight: '.5em'
         }}
-      >
-        <Option value={-1}>No ability</Option>
-        {groupedAbilitiesList}
-      </Select>
+      />
       <Button
         type="primary"
         shape="circle"

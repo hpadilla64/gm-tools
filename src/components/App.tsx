@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Typography } from 'antd';
+import { useState } from 'react';
+import { Layout, Menu, Typography, type MenuProps } from 'antd';
 import { CalculatorOutlined, AppstoreAddOutlined, OrderedListOutlined } from '@ant-design/icons';
 import EncounterCalculator from './encounterCalculator';
 import ItemsCreator from './itemsCreator';
@@ -36,8 +36,7 @@ export const App = () => {
     }
   };
 
-  const toolSelectHandler = (event: any) => {
-    const { key } = event;
+  const toolSelectHandler: MenuProps['onClick'] = ({ key }) => {
     setToolName(key);
   };
 
@@ -73,13 +72,12 @@ export const App = () => {
             style={{ height: '100%', borderRight: 0 }}
             selectedKeys={[toolName]}
             onClick={toolSelectHandler}
-          >
-            {Object.entries(dmTools).map(([key, value]) => (
-              <Menu.Item key={key} icon={value.icon}>
-                {value.title}
-              </Menu.Item>
-            ))}
-          </Menu>
+            items={Object.entries(dmTools).map(([key, value]) => ({
+              key,
+              icon: value.icon,
+              label: value.title
+            }))}
+          />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
           <Content

@@ -1,4 +1,4 @@
-import React, { DragEvent, useState } from 'react';
+import { DragEvent, useState } from 'react';
 import { List, InputNumber, Button } from 'antd';
 import { DeleteFilled } from '@ant-design/icons';
 import { ITrackerCharacter } from '../../interfaces';
@@ -135,7 +135,7 @@ function CharacterListTracker({ charactersList, onArrange }: TrackerListProps) {
                 <div className="initiative-field">
                   <InputNumber
                     value={item.initiative}
-                    onChange={(value: number) => initiativeHandler([item.id, value])}
+                    onChange={(value) => initiativeHandler([item.id, value ?? 0])}
                     min={-99}
                     max={99}
                     style={{

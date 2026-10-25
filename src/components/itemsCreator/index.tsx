@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Card, Divider, Select, Radio } from 'antd';
 import ItemAbilityList from './itemAbilityList';
 import ItemReport from './itemReport';
 import { ITEM_TYPE_MAP } from '../../tools/maps';
 import { IItemAbility } from '../../interfaces';
-const { Option } = Select;
 
 import WeaponsData from '../../data/weapons/weaponsAbilities.json';
 import ItemPrices from '../../data/weapons/weaponPriceByBonus.json';
@@ -61,13 +60,17 @@ function ItemsCreator() {
     <Row gutter={16}>
       <Col span={12} xs={24} md={12}>
         <Card>
-          <Divider orientation="left">Item type</Divider>
-          <Select value={itemType} onChange={(value) => setItemType(value)}>
-            <Option value={0}>Melee Weapon</Option>
-            <Option value={1}>Ranged Weapon</Option>
-            <Option value={2}>Ammo</Option>
-          </Select>
-          <Divider orientation="left">Item Bonus</Divider>
+          <Divider titlePlacement="start">Item type</Divider>
+          <Select
+            value={itemType}
+            onChange={(value) => setItemType(value)}
+            options={[
+              { value: 0, label: 'Melee Weapon' },
+              { value: 1, label: 'Ranged Weapon' },
+              { value: 2, label: 'Ammo' }
+            ]}
+          />
+          <Divider titlePlacement="start">Item Bonus</Divider>
           <Radio.Group onChange={({ target: { value } }) => setItemBonus(value)} value={itemBonus}>
             <Radio value={1} disabled={maxBonusAvailable < 1}>
               +1
@@ -85,7 +88,7 @@ function ItemsCreator() {
               +5
             </Radio>
           </Radio.Group>
-          <Divider orientation="left">Item abilities</Divider>
+          <Divider titlePlacement="start">Item abilities</Divider>
           <ItemAbilityList
             abilitiesList={abilitiesList}
             selectedAbilitiesList={selectedAbilities}

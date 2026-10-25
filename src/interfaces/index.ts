@@ -8,7 +8,7 @@ import { EncounterCalculated, EncounterTreasure } from './encounterCalculator/en
 import { EncounterReport } from './encounterCalculator/encounterReport';
 import { ITrackerCharacter } from './initiativeTracker/ITrackerCharacter';
 
-export {
+export type {
   EncounterCharacterGroup,
   EncounterCRCalc,
   EncounterCharacterProps,

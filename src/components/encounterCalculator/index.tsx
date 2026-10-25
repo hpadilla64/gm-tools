@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, List, Select, Row, Col, Card, Typography, Space } from 'antd';
 import { DeleteFilled, PlusOutlined } from '@ant-design/icons';
 import { EncounterCharacterGroup, EncounterReport as IEncounterReport } from '../../interfaces';
 import { calculateEncounter } from '../../data/encounterCalculator/encounterCalculator';
-const { Option } = Select;
 const { Text } = Typography;
 
 // UI
@@ -222,24 +221,32 @@ function EncounterCalculator() {
           <Row>
             <Col span={24}>
               <Card title="Encounter modifiers">
-                <Space direction="horizontal" wrap>
-                  <Space direction="horizontal">
+                <Space orientation="horizontal" wrap>
+                  <Space orientation="horizontal">
                     <Text strong>Encounter difficulty:</Text>
-                    <Select value={encounterDifficulty} onSelect={(value) => setEncounterDifficulty(value)}>
-                      <Option value="easy">Easy</Option>
-                      <Option value="average">Average</Option>
-                      <Option value="challenging">Challenging</Option>
-                      <Option value="hard">Hard</Option>
-                      <Option value="epic">Epic</Option>
-                    </Select>
+                    <Select
+                      value={encounterDifficulty}
+                      onSelect={(value) => setEncounterDifficulty(value)}
+                      options={[
+                        { value: 'easy', label: 'Easy' },
+                        { value: 'average', label: 'Average' },
+                        { value: 'challenging', label: 'Challenging' },
+                        { value: 'hard', label: 'Hard' },
+                        { value: 'epic', label: 'Epic' }
+                      ]}
+                    />
                   </Space>
-                  <Space direction="horizontal">
+                  <Space orientation="horizontal">
                     <Text strong>Terrain advantage:</Text>
-                    <Select value={terrainValue} onSelect={(value) => setTerrainValue(value)}>
-                      <Option value="null">Neutral</Option>
-                      <Option value="true">Favorable for PCs</Option>
-                      <Option value="false">Unfavorable for PCs</Option>
-                    </Select>
+                    <Select
+                      value={terrainValue}
+                      onSelect={(value) => setTerrainValue(value)}
+                      options={[
+                        { value: 'null', label: 'Neutral' },
+                        { value: 'true', label: 'Favorable for PCs' },
+                        { value: 'false', label: 'Unfavorable for PCs' }
+                      ]}
+                    />
                   </Space>
                 </Space>
               </Card>

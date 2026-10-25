@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Typography, Tooltip, Space } from 'antd';
 import { ITEM_TYPE_NAME_MAP } from '../../tools/maps';
 import { commaNumber } from '../../tools/snippets';
@@ -10,7 +9,7 @@ function ItemReport<
   const { itemPrice, itemType, itemBonus, selectedAbilities } = props;
   return (
     <Card>
-      <Space direction="vertical">
+      <Space orientation="vertical">
         <span>
           Item type: <b>{ITEM_TYPE_NAME_MAP[itemType]}</b>
         </span>

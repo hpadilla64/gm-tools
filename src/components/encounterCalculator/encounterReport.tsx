@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Divider, Space, Typography, Tooltip } from 'antd';
+import { useEffect, useState } from 'react';
+import { Card, Divider, Space, Typography, Tooltip, type GetProp } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { EncounterReport as IEncounterReport, IIndexable } from '../../interfaces';
-import { BaseType } from 'antd/lib/typography/Base';
 import { commaNumber } from '../../tools/snippets';
 const { Text } = Typography;
+type BaseType = GetProp<typeof Text, 'type'>;
 const ENCOUNTER_LABELS_MAP: IIndexable = {
   totalAPL: 'Average Party Level',
   totalCharacters: 'Total # of characters',
@@ -32,7 +32,7 @@ function EncounterInfoBox<T extends { info: object; suffix?: string }>(props: T)
   const { info, suffix = '' } = props;
 
   return (
-    <Space direction="vertical">
+    <Space orientation="vertical">
       {Object.entries(info).map(([key, value]) => (
         <Text key={key}>
           {ENCOUNTER_LABELS_MAP[key]}:{' '}
@@ -69,12 +69,12 @@ function EncounterReport(props: IEncounterReport) {
 
   return (
     <Card title="Encounter Information">
-      <Divider orientation="left">Party</Divider>
+      <Divider titlePlacement="start">Party</Divider>
       <EncounterInfoBox info={party} />
-      <Divider orientation="left">Encounter</Divider>
+      <Divider titlePlacement="start">Encounter</Divider>
       <EncounterInfoBox info={encounter} />
-      <Divider orientation="left">XP</Divider>
-      <Space direction="vertical">
+      <Divider titlePlacement="start">XP</Divider>
+      <Space orientation="vertical">
         <Text>
           <Tooltip title="Individual XP awards listed for a group of the appropriate party size">
             <InfoCircleOutlined />
@@ -95,7 +95,7 @@ function EncounterReport(props: IEncounterReport) {
           of <Text strong>{commaNumber(xp.xpBudget)}</Text> xp for this encounter.
         </Text>
       </Space>
-      <Divider orientation="left">Treasure</Divider>
+      <Divider titlePlacement="start">Treasure</Divider>
       <EncounterInfoBox info={treasure} suffix="gp" />
     </Card>
   );
